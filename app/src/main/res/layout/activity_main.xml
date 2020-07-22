@@ -6,15 +6,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".MainActivity">
-    <ImageView
-        android:src="@drawable/logopequeno"
-        android:layout_width="200dp"
-        android:layout_height="70dp"/>
-
     <ProgressBar
-        android:layout_marginTop="20dp"
+
         android:id="@+id/progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:progressDrawable="@drawable/pb_design"
@@ -22,6 +16,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:src="@drawable/logopequeno"
+            android:layout_width="200dp"
+            android:layout_height="70dp"/>
+    </LinearLayout>
+
+
+
 
 
 </LinearLayout>

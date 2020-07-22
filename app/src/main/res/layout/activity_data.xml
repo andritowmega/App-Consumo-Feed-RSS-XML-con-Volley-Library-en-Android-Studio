@@ -11,7 +11,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/findplayer"
-        android:hint="¿A quien buscas?"
+        android:hint="¿A quien deseas escanear?"
         android:textColorHint="@color/colorInicio2"
         android:textColor="@color/colorFin"
         android:padding="10dp"

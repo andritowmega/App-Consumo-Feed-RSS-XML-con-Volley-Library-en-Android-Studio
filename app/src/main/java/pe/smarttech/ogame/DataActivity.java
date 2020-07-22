@@ -36,7 +36,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import pe.smarttech.ogame.Adapters.AutcompleteAdapter;
+import pe.smarttech.ogame.model.Alliance;
+import pe.smarttech.ogame.model.DataPlayer;
+import pe.smarttech.ogame.model.Moon;
+import pe.smarttech.ogame.model.Planet;
 import pe.smarttech.ogame.model.Players;
+import pe.smarttech.ogame.model.Position;
 
 public class DataActivity extends AppCompatActivity {
     private RequestQueue mQueue;
@@ -130,6 +135,7 @@ public class DataActivity extends AppCompatActivity {
                         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                         //API to obtain DOM Document instance
                         DocumentBuilder builder = null;
+                        DataPlayer dataPlayer = null;
                         try
                         {
                             //Create DocumentBuilder with default configuration
@@ -141,13 +147,54 @@ public class DataActivity extends AppCompatActivity {
                                 Element eElement = (Element) positions.item(0);
                                 NodeList position = eElement.getElementsByTagName("position");
 
+                                String ships="";
+                                String name=autoCompleteTextView.getText().toString();
+
+                                //Creando Positions
+                                ArrayList<Position> positionslist = new ArrayList<>();
+
                                 for(int z=0;z<position.getLength();z++){
                                     Element elementposition = (Element)  position.item(z);
-                                    Log.d("DATAPLAYER",elementposition.getAttribute("score"));
+                                    if(elementposition.getAttribute("type").equals("3")){
+                                        ships=elementposition.getAttribute("ships");
+                                    }
+                                    positionslist.add(new Position(elementposition.getAttribute("type"),elementposition.getAttribute("score"),elementposition.getTextContent()));
                                 }
 
-                            Log.d("Response","ok");
-                            //setAdapter();
+                            NodeList planets = doc.getElementsByTagName("planets");
+                            Element eElemenplanet = (Element) planets.item(0);
+                            NodeList planet = eElemenplanet.getElementsByTagName("planet");
+
+                            //Creando Planets
+                            ArrayList<Planet> planetslist = new ArrayList<>();
+
+                            for(int z=0;z<planet.getLength();z++){
+                                Element elementplanet = (Element)  planet.item(z);
+                                //Consultamos si tiene luna
+                                Moon moonitem=null;
+                                if(elementplanet.getElementsByTagName("moon").getLength()>0){
+                                  NodeList Moon = elementplanet.getElementsByTagName("moon");
+                                  Element elementMoon = (Element) Moon.item(0);
+                                  moonitem = new Moon(elementMoon.getAttribute("id"),elementMoon.getAttribute("name"),elementMoon.getAttribute("size"));
+                                }
+                                planetslist.add(new Planet(elementplanet.getAttribute("id"),elementplanet.getAttribute("name"),elementplanet.getAttribute("coords"),moonitem));
+
+                            }
+                            //creando Alliance
+                            Alliance allianceitem = null;
+                            if(doc.getElementsByTagName("alliance").getLength()>0){
+                                Element alliance = (Element) doc.getElementsByTagName("alliance").item(0);
+                                Element nameAlliance = (Element) alliance.getFirstChild();
+                                Element tagAlliance = (Element) alliance.getElementsByTagName("tag").item(0);
+                                Log.d("Name Alliance",alliance.getAttribute("id"));
+                                allianceitem = new Alliance(alliance.getAttribute("id"),nameAlliance.getTextContent(),tagAlliance.getTextContent());
+                            }
+                            else{
+                                Log.d("Alliance","Sin alianza");
+                            }
+                            dataPlayer = new DataPlayer(name,ships,positionslist,planetslist,allianceitem);
+
+
                         }
                         catch (Exception e)
                         {
@@ -155,7 +202,7 @@ public class DataActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         status.setVisibility(View.GONE);
-                        InflateFragment();
+                        InflateFragment(dataPlayer);
                     }
                 },
                 new Response.ErrorListener()
@@ -184,8 +231,8 @@ public class DataActivity extends AppCompatActivity {
         autoCompleteTextView.setAdapter(adapterNames);
 
     }
-    private void InflateFragment(){
-        DataPlayerFragment dataPlayerFragment = new DataPlayerFragment();
+    private void InflateFragment(DataPlayer dataPlayer){
+        DataPlayerFragment dataPlayerFragment = new DataPlayerFragment(dataPlayer);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back

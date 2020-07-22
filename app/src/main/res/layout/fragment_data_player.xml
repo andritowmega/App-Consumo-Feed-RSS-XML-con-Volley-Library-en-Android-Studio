@@ -24,10 +24,10 @@
                 <LinearLayout
                     android:layout_marginLeft="5dp"
                     android:orientation="vertical"
-                    android:layout_width="45dp"
+                    android:layout_width="55dp"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:text="Puntos"
+                        android:text="Ranking"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
                         android:layout_width="match_parent"
@@ -37,6 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/puntos"
                         android:text="500"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -59,6 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/economia"
                         android:text="500"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -81,6 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/investigacion"
                         android:text="50000"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -103,6 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/militar"
                         android:text="500"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -111,7 +115,7 @@
                 </LinearLayout>
             </LinearLayout>
             <TextView
-                android:layout_marginTop="10dp"
+                android:id="@+id/ejercito"
                 android:text="EJERCITO:"
                 android:textColor="@color/colorFin"
                 android:textAlignment="center"
@@ -140,6 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/militarconstruccion"
                         android:text="500"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -163,6 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/militardestruccion"
                         android:text="500"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -186,6 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/militarperdido"
                         android:text="500"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -209,6 +216,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
                     <TextView
+                        android:id="@+id/honor"
                         android:text="500"
                         android:textColor="@color/colorFin"
                         android:textAlignment="center"
@@ -216,6 +224,29 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_song"
+            android:layout_width="match_parent"
+            android:paddingTop="5dp"
+            android:orientation="vertical"
+            android:paddingLeft="7dp"
+            android:paddingBottom="11dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="@color/colorFin"
+                android:id="@+id/total"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ListView
+                android:id="@+id/lv_planet"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+            </ListView>
         </LinearLayout>
 
 
